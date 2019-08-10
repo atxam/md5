@@ -412,7 +412,7 @@ $('#run').on('click', () => { // RUN
   }
 
   for (let i = 0; i < maxRow; i++) {
-    result.push((data1[i] || '') + (data2[i] || '') + (data3[i] || '') + (data4[i] || ''));
+    result.push((data1[i] || '') + '' + (data2[i] || '') + '' + (data3[i] || '') + '' + (data4[i] || ''));
   };
 
   print_result(result);
