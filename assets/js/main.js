@@ -24,6 +24,15 @@ class Form {
     this.value = null;
     this.value2 = null;
     this.data = [];
+    this.before = '';
+    this.after = '';
+  };
+
+  clear() {
+    this.operation = null;
+    this.value = null;
+    this.value2 = null;
+    this.data = [];
   }
 };
 
@@ -37,7 +46,7 @@ editor1.on('change', function (e) {
   arrDatasLength['0'] = form1.data.length || 1;
 
   if (form1.data.length) {
-    $('.form1').find('input')
+    $('.form1').find('input[type!=text]')
       .prop('checked', false)
       .prop('disabled', true);
   } else {
@@ -54,7 +63,7 @@ editor2.on('change', function (e) {
   arrDatasLength['1'] = form2.data.length || 1;
 
   if (form2.data.length) {
-    $('.form2').find('input')
+    $('.form2').find('input[type!=text]')
       .prop('checked', false)
       .prop('disabled', true);
   } else {
@@ -71,7 +80,7 @@ editor3.on('change', function (e) {
   arrDatasLength['2'] = form3.data.length || 1;
 
   if (form3.data.length) {
-    $('.form3').find('input')
+    $('.form3').find('input[type!=text]')
       .prop('checked', false)
       .prop('disabled', true);
   } else {
@@ -88,7 +97,7 @@ editor4.on('change', function (e) {
   arrDatasLength['3'] = form4.data.length || 1;
 
   if (form4.data.length) {
-    $('.form4').find('input')
+    $('.form4').find('input[type!=text]')
       .prop('checked', false)
       .prop('disabled', true);
   } else {
@@ -168,6 +177,11 @@ $('.options').on('input', function (e) {
       }
     }
   };
+
+  if ($target.prop('type') == 'text') {
+    window[form].before = $this.find(':text').first().val();
+    window[form].after = $this.find(':text').last().val();
+  }
 });
 
 
@@ -412,7 +426,7 @@ $('#run').on('click', () => { // RUN
   }
 
   for (let i = 0; i < maxRow; i++) {
-    result.push((data1[i] || '') + '' + (data2[i] || '') + '' + (data3[i] || '') + '' + (data4[i] || ''));
+    result.push(form1.before + (data1[i] || '') + form1.after + form2.before + (data2[i] || '') + form2.after + form3.before + (data3[i] || '') + form3.after + form4.before + (data4[i] || '') + form4.after);
   };
 
   print_result(result);
@@ -525,14 +539,16 @@ $('.options').on('click', function (e) { // off radio
     $(this).find('input[type=number]').prop('disabled', true);
 
     var form = $target.attr('data-form-name'); // refresh form
-    window[form] = new Form();
+    // window[form] = new Form();
+    window[form].clear();
 
   } else if ($target.prev().attr('type') == 'radio' && e.ctrlKey) {
     $target.prev().prop('checked', false);
     $(this).find('input[type=number]').prop('disabled', true);
 
     var form = $target.prev().attr('data-form-name'); // refresh form
-    window[form] = new Form();
+    // window[form] = new Form();
+    window[form].clear();
   }
 
 

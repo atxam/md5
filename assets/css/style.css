@@ -106,6 +106,12 @@ kbd {
   outline: none;
 }
 
+.separator {
+  width: 25px;
+  height: 23px;
+  font-size: 13px;
+}
+
 .options {
   padding: 15px;
 }
